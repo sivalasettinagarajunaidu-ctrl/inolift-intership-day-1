@@ -1,0 +1,27 @@
+import pandas as pd
+
+# Create dataset
+data = {
+    "Name": ["Bhaskar", "Rahul", "Priya", "Anjali", "Kiran", "Ravi"],
+    "Department": ["CSE", "CSE", "AIML", "AIML", "CSE", "AIML"],
+    "Marks": [85, 78, 92, 88, 75, 95]
+}
+
+df = pd.DataFrame(data)
+
+# Display dataset
+print("Student Dataset:")
+print(df)
+
+# Group by Department and calculate average marks
+grouped = df.groupby("Department")["Marks"].mean()
+
+print("\nAverage Marks by Department:")
+print(grouped)
+
+# Find highest average department
+highest_dept = grouped.idxmax()
+highest_avg = grouped.max()
+
+print("\nDepartment with Highest Average Marks:")
+print(highest_dept, "=", highest_avg)
