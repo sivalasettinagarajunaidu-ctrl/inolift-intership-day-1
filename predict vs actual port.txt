@@ -1,0 +1,62 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+# Load Dataset
+df = pd.read_csv("diabetes.csv")
+
+# Features and Target
+X = df.drop("Outcome", axis=1)
+y = df["Outcome"]
+
+# Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.20,
+    random_state=42
+)
+
+# Train Model
+model = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
+
+model.fit(X_train, y_train)
+
+# Predictions
+y_pred = model.predict(X_test)
+
+# First 10 Actual vs Predicted
+print("Actual  Predicted")
+for actual, pred in zip(y_test[:10], y_pred[:10]):
+    print(f"{actual:^6} {pred:^10}")
+
+# Scatter Plot
+plt.figure(figsize=(7,5))
+
+plt.scatter(
+    y_test,
+    y_pred,
+    color="blue",
+    alpha=0.7,
+    label="Predictions"
+)
+
+plt.plot(
+    [0,1],
+    [0,1],
+    color="red",
+    linestyle="--",
+    label="Perfect Prediction"
+)
+
+plt.title("Actual vs Predicted Outcomes")
+plt.xlabel("Actual Values")
+plt.ylabel("Predicted Values")
+plt.legend()
+plt.grid(True)
+
+plt.savefig("actual_vs_predicted.png")
+plt.show()
