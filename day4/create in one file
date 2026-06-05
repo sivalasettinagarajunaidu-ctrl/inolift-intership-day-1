@@ -1,0 +1,233 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import pickle
+from flask import Flask, request, render_template_string
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# ==========================
+# LOAD DATASET
+# ==========================
+
+df = pd.read_csv("diabetes.csv")
+
+# Replace invalid zeros with NaN
+columns = ["Glucose", "BloodPressure", "SkinThickness",
+           "Insulin", "BMI"]
+
+for col in columns:
+    df[col] = df[col].replace(0, np.nan)
+    df[col] = df[col].fillna(df[col].mean())
+
+print("\nDataset Shape:")
+print(df.shape)
+
+print("\nMissing Values:")
+print(df.isnull().sum())
+
+print("\nStatistics:")
+print(df.describe())
+
+# ==========================
+# EDA PLOTS (4 Separate Figures)
+# ==========================
+
+# Plot 1
+plt.figure(figsize=(5,4))
+df["Outcome"].value_counts().plot(kind="bar")
+plt.title("Outcome Distribution")
+plt.savefig("outcome_distribution.png")
+plt.close()
+
+# Plot 2
+plt.figure(figsize=(5,4))
+plt.hist(df["Glucose"], bins=20)
+plt.title("Glucose Distribution")
+plt.savefig("glucose_distribution.png")
+plt.close()
+
+# Plot 3
+plt.figure(figsize=(5,4))
+plt.hist(df["BMI"], bins=20)
+plt.title("BMI Distribution")
+plt.savefig("bmi_distribution.png")
+plt.close()
+
+# Plot 4 Correlation Heatmap
+plt.figure(figsize=(8,6))
+corr = df.corr()
+
+plt.imshow(corr, cmap='coolwarm')
+plt.colorbar()
+
+plt.xticks(range(len(corr.columns)),
+           corr.columns,
+           rotation=90)
+
+plt.yticks(range(len(corr.columns)),
+           corr.columns)
+
+plt.title("Correlation Heatmap")
+plt.tight_layout()
+
+plt.savefig("correlation_heatmap.png")
+plt.close()
+
+print("EDA Images Saved Successfully")
+
+# ==========================
+# MODEL TRAINING
+# ==========================
+
+X = df.drop("Outcome", axis=1)
+y = df["Outcome"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,
+    random_state=42
+)
+
+scaler = StandardScaler()
+
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Logistic Regression
+
+lr = LogisticRegression(max_iter=1000)
+lr.fit(X_train, y_train)
+
+lr_pred = lr.predict(X_test)
+
+lr_acc = accuracy_score(y_test, lr_pred)
+
+# Random Forest
+
+rf = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
+
+rf.fit(X_train, y_train)
+
+rf_pred = rf.predict(X_test)
+
+rf_acc = accuracy_score(y_test, rf_pred)
+
+print("\nLogistic Regression Accuracy:", round(lr_acc,4))
+print("Random Forest Accuracy:", round(rf_acc,4))
+
+# Best Model
+
+best_model = rf if rf_acc > lr_acc else lr
+
+with open("diabetes_model.pkl", "wb") as file:
+    pickle.dump(best_model, file)
+
+print("\nBest Model Saved as diabetes_model.pkl")
+
+# ==========================
+# FLASK APP
+# ==========================
+
+app = Flask(__name__)
+
+model = pickle.load(open("diabetes_model.pkl", "rb"))
+
+HTML = """
+<!DOCTYPE html>
+<html>
+<head>
+<title>Diabetes Predictor</title>
+<style>
+body{
+font-family:Arial;
+text-align:center;
+margin-top:50px;
+}
+input{
+padding:10px;
+margin:10px;
+width:250px;
+}
+button{
+padding:10px;
+background:green;
+color:white;
+border:none;
+}
+</style>
+</head>
+<body>
+
+<h1>Diabetes Risk Predictor</h1>
+
+<form method="POST">
+
+<input type="number" step="any"
+name="glucose"
+placeholder="Glucose" required><br>
+
+<input type="number" step="any"
+name="bmi"
+placeholder="BMI" required><br>
+
+<input type="number" step="any"
+name="age"
+placeholder="Age" required><br>
+
+<input type="number" step="any"
+name="bp"
+placeholder="Blood Pressure" required><br>
+
+<button type="submit">
+Predict
+</button>
+
+</form>
+
+{% if result %}
+<h2>{{result}}</h2>
+<h3>Probability : {{prob}}%</h3>
+{% endif %}
+
+</body>
+</html>
+"""
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+
+    result = None
+    prob = None
+
+    if request.method == "POST":
+
+        glucose = float(request.form["glucose"])
+        bmi = float(request.form["bmi"])
+        age = float(request.form["age"])
+        bp = float(request.form["bp"])
+
+        sample = np.array([
+            [0, glucose, bp, 0, 0, bmi, 0, age]
+        ])
+
+        prediction = model.predict(sample)[0]
+        probability = model.predict_proba(sample)[0][1]
+
+        result = "Diabetic" if prediction == 1 else "Not Diabetic"
+        prob = round(probability * 100, 2)
+
+    return render_template_string(
+        HTML,
+        result=result,
+        prob=prob
+    )
+
+if __name__ == "__main__":
+    app.run(debug=True)

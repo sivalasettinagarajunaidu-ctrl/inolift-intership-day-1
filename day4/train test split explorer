@@ -1,0 +1,47 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+
+# Load Dataset
+df = pd.read_csv("diabetes.csv")
+
+# Features and Target
+X = df.drop("Outcome", axis=1)
+y = df["Outcome"]
+
+# Split Dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.20,
+    random_state=42
+)
+
+# Print Information
+print("========== TRAIN TEST SPLIT EXPLORER ==========")
+print("Total Records :", len(df))
+print("Training Records :", len(X_train))
+print("Testing Records :", len(X_test))
+
+print("\nTraining Shape :", X_train.shape)
+print("Testing Shape :", X_test.shape)
+
+# Visualization
+sizes = [len(X_train), len(X_test)]
+labels = ["Training Data", "Testing Data"]
+colors = ["skyblue", "orange"]
+
+plt.figure(figsize=(6,5))
+
+plt.pie(
+    sizes,
+    labels=labels,
+    colors=colors,
+    autopct="%1.1f%%",
+    startangle=90
+)
+
+plt.title("PIMA Diabetes Dataset Train-Test Split")
+plt.legend()
+
+plt.savefig("train_test_split.png")
+plt.show()
