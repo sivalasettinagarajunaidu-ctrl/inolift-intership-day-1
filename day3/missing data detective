@@ -1,0 +1,31 @@
+import pandas as pd
+import numpy as np
+
+# Create sample dataset with missing values
+data = {
+    "Name": ["Bhaskar", "Rahul", "Priya", "Anjali", "Kiran"],
+    "Age": [20, np.nan, 19, 22, np.nan],
+    "Marks": [85, 78, np.nan, 88, 75]
+}
+
+df = pd.DataFrame(data)
+
+# Display dataset
+print("Original Dataset:")
+print(df)
+
+# Check missing values
+print("\nMissing Values in Each Column:")
+print(df.isnull().sum())
+
+# Total missing values
+print("\nTotal Missing Values:")
+print(df.isnull().sum().sum())
+
+# Fill missing values with column mean
+df["Age"] = df["Age"].fillna(df["Age"].mean())
+df["Marks"] = df["Marks"].fillna(df["Marks"].mean())
+
+# Display updated dataset
+print("\nDataset After Filling Missing Values:")
+print(df)

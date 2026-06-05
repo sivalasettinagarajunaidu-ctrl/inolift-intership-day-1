@@ -1,0 +1,29 @@
+import pandas as pd
+
+# Create a DataFrame
+data = {
+    "Student_ID": [101, 102, 103, 104, 105],
+    "Name": ["Bhaskar", "Rahul", "Priya", "Anjali", "Kiran"],
+    "Age": [20, 21, 19, 22, 20],
+    "Marks": [85, 78, 92, 88, 75]
+}
+
+df = pd.DataFrame(data)
+
+# Display DataFrame
+print("Student DataFrame")
+print(df)
+
+# Display basic information
+print("\nDataFrame Information")
+print(df.info())
+
+# Display summary statistics
+print("\nSummary Statistics")
+print(df.describe())
+
+# Add a new column
+df["Result"] = ["Pass" if mark >= 40 else "Fail" for mark in df["Marks"]]
+
+print("\nUpdated DataFrame")
+print(df)
