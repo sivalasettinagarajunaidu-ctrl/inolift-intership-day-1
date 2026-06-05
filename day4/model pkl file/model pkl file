@@ -1,0 +1,83 @@
+import pandas as pd
+import numpy as np
+import pickle
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# Load Dataset
+df = pd.read_csv("diabetes.csv")
+
+# Handle Missing Zeros
+cols = ["Glucose", "BloodPressure", "SkinThickness",
+        "Insulin", "BMI"]
+
+for col in cols:
+    df[col] = df[col].replace(0, np.nan)
+    df[col] = df[col].fillna(df[col].mean())
+
+# Select Numerical Columns
+numeric_df = df.select_dtypes(include='number')
+
+# Features and Target
+X = numeric_df[["Glucose", "BMI", "Age", "BloodPressure"]]
+y = numeric_df["Outcome"]
+
+# Train Test Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.20,
+    random_state=42
+)
+
+# Logistic Regression
+lr = LogisticRegression(max_iter=1000)
+lr.fit(X_train, y_train)
+
+lr_pred = lr.predict(X_test)
+lr_acc = accuracy_score(y_test, lr_pred)
+
+# Random Forest
+rf = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
+
+rf.fit(X_train, y_train)
+
+rf_pred = rf.predict(X_test)
+rf_acc = accuracy_score(y_test, rf_pred)
+
+print("Logistic Regression Accuracy :", round(lr_acc*100,2), "%")
+print("Random Forest Accuracy       :", round(rf_acc*100,2), "%")
+
+# Select Best Model
+if rf_acc > lr_acc:
+    best_model = rf
+    best_name = "Random Forest"
+else:
+    best_model = lr
+    best_name = "Logistic Regression"
+
+# Save Model
+with open("diabetes_model.pkl", "wb") as file:
+    pickle.dump(best_model, file)
+
+print("\nBest Model Saved Successfully!")
+print("Model Name :", best_name)
+
+# Load Model
+with open("diabetes_model.pkl", "rb") as file:
+    loaded_model = pickle.load(file)
+
+# Sample Prediction
+sample = [[150, 32.5, 45, 85]]
+
+prediction = loaded_model.predict(sample)[0]
+probability = loaded_model.predict_proba(sample)[0][1]
+
+print("\nPrediction :", "Diabetic" if prediction == 1 else "Not Diabetic")
+print("Probability :", round(probability*100,2), "%")
