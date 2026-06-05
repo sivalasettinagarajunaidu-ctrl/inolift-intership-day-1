@@ -1,0 +1,113 @@
+# Diabetes Risk Predictor
+
+## Project Overview
+
+This project predicts whether a patient is at risk of diabetes using the
+PIMA Indians Diabetes Dataset.
+
+The dataset is analyzed using Exploratory Data Analysis (EDA),
+cleaned by handling missing values represented as zeros,
+and used to train a Machine Learning model.
+
+---
+
+## Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Flask
+- HTML
+- CSS
+- SQLite
+
+---
+
+## Dataset
+
+PIMA Indians Diabetes Dataset
+
+Features:
+
+1. Pregnancies
+2. Glucose
+3. BloodPressure
+4. SkinThickness
+5. Insulin
+6. BMI
+7. DiabetesPedigreeFunction
+8. Age
+
+Target:
+
+Outcome
+- 0 = Non-Diabetic
+- 1 = Diabetic
+
+---
+
+## Data Cleaning
+
+Columns containing impossible zeros:
+
+- Glucose
+- BloodPressure
+- SkinThickness
+- Insulin
+- BMI
+
+Zeros replaced with median values.
+
+---
+
+## EDA Performed
+
+- Dataset Shape
+- Missing Values
+- Statistical Summary
+- Correlation Analysis
+- Heatmap Visualization
+- Outcome Distribution
+
+---
+
+## Model Used
+
+Random Forest Classifier
+
+Train-Test Split:
+80% Training
+20% Testing
+
+---
+
+## Accuracy
+
+Example Accuracy: 78% - 85%
+
+---
+
+## How To Run
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+Train model:
+
+python train.py
+
+Run Flask App:
+
+python app.py
+
+Open browser:
+
+http://127.0.0.1:5000
+
+---
+
+## Author
+
+Student Machine Learning Mini Project

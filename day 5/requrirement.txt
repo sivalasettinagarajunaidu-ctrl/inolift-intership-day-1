@@ -1,0 +1,44 @@
+Flask==3.1.1
+pandas==2.3.0
+numpy==2.3.1
+scikit-learn==1.7.0
+matplotlib==3.10.3
+seaborn==0.13.2
+joblib==1.5.1
+
+# Database
+SQLAlchemy==2.0.41
+Flask-SQLAlchemy==3.1.1
+
+# Model Serialization
+pickle-mixin==1.0.2
+
+# Deployment
+gunicorn==23.0.0
+
+# Form Handling
+WTForms==3.2.1
+Flask-WTF==1.2.2
+
+# Environment Variables
+python-dotenv==1.1.0
+
+# Data Visualization
+plotly==6.1.2
+
+# Jupyter Support (Optional)
+jupyter==1.1.1
+notebook==7.4.3
+ipykernel==6.29.5
+
+# API Support (Optional)
+Flask-RESTful==0.3.10
+
+# Data Validation
+pydantic==2.11.7
+
+# Excel Support
+openpyxl==3.1.5
+
+# HTTP Requests
+requests==2.32.4
