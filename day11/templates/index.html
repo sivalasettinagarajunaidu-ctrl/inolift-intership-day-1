@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="brand" href="{{ url_for('home') }}">Green Valley College</a>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('student_records') }}">Students</a>
+            <a href="{{ url_for('about') }}">About</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">Academic Management Portal</p>
+                <h1>Student Registration System</h1>
+                <p>
+                    A clean Flask-based frontend for managing student enrollment details,
+                    viewing student records, and preparing for database integration.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn primary" href="{{ url_for('register') }}">Register Student</a>
+                    <a class="btn secondary" href="{{ url_for('student_records') }}">View Records</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <p class="eyebrow">Welcome</p>
+                <h2>Built for simple, organized student administration</h2>
+            </div>
+            <div class="card-grid">
+                <article class="card">
+                    <h3>Fast Registration</h3>
+                    <p>Capture student details with a focused, professional form layout.</p>
+                </article>
+                <article class="card">
+                    <h3>Clear Records</h3>
+                    <p>Review dummy student data in a responsive table prepared for future storage.</p>
+                </article>
+                <article class="card">
+                    <h3>Flask Routing</h3>
+                    <p>Every page is connected through Flask routes using template rendering.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Green Valley College. Student Registration System.</p>
+    </footer>
+</body>
+</html>

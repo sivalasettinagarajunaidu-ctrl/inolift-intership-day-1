@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="brand" href="{{ url_for('home') }}">Green Valley College</a>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('student_records') }}">Students</a>
+            <a href="{{ url_for('about') }}">About</a>
+        </div>
+    </nav>
+
+    <main class="page-wrap">
+        <section class="page-header">
+            <p class="eyebrow">About</p>
+            <h1>Project Overview</h1>
+            <p>
+                The Student Registration System is a Flask web application designed to collect,
+                display, and manage student information through a professional web interface.
+            </p>
+        </section>
+
+        <section class="card-grid">
+            <article class="card">
+                <h3>Features</h3>
+                <p>Template rendering, page navigation, styled forms, student tables, and responsive layouts.</p>
+            </article>
+            <article class="card">
+                <h3>Team Information</h3>
+                <p>Developed by the student project team as part of the Flask frontend development task.</p>
+            </article>
+            <article class="card">
+                <h3>Next Phase</h3>
+                <p>SQLite integration will store real student records and connect the form to the database.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Green Valley College. Student Registration System.</p>
+    </footer>
+</body>
+</html>
