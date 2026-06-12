@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Student Registration System{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h2>Welcome to Student Registration System</h2>
+    <p>A complete web application for managing student registrations using Flask and SQLite</p>
+    <div class="btn-group">
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Register New Student</a>
+        <a href="{{ url_for('students') }}" class="btn btn-secondary btn-large">View All Students</a>
+    </div>
+</div>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3 id="total-students">0</h3>
+        <p>Total Registered Students</p>
+    </div>
+    <div class="stat-card">
+        <h3>✅</h3>
+        <p>System Status: Active</p>
+    </div>
+    <div class="stat-card">
+        <h3>📊</h3>
+        <p>Database Connected</p>
+    </div>
+</div>
+
+<div style="background: #f8f9fa; padding: 30px; border-radius: 10px;">
+    <h2 style="margin-bottom: 20px; color: #333;">Features</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        <div>
+            <h3 style="color: #667eea; margin-bottom: 10px;">📝 Registration Form</h3>
+            <p>Easy-to-use form to register new students with all required information</p>
+        </div>
+        <div>
+            <h3 style="color: #667eea; margin-bottom: 10px;">💾 SQLite Database</h3>
+            <p>Secure and reliable database to store all student records</p>
+        </div>
+        <div>
+            <h3 style="color: #667eea; margin-bottom: 10px;">🔍 View Records</h3>
+            <p>Easily view all registered students in a formatted table</p>
+        </div>
+        <div>
+            <h3 style="color: #667eea; margin-bottom: 10px;">🚀 Flask Backend</h3>
+            <p>Powerful backend for form processing and data management</p>
+        </div>
+        <div>
+            <h3 style="color: #667eea; margin-bottom: 10px;">🎨 Responsive Design</h3>
+            <p>Beautiful and responsive UI that works on all devices</p>
+        </div>
+        <div>
+            <h3 style="color: #667eea; margin-bottom: 10px;">🔒 Data Validation</h3>
+            <p>Form validation to ensure data integrity and consistency</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// Fetch total students count
+fetch('{{ url_for("api_students") }}')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('total-students').textContent = data.count;
+    })
+    .catch(error => console.error('Error fetching data:', error));
+</script>
+{% endblock %}

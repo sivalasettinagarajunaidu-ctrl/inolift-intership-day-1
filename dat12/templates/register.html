@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Register Student - Student Registration System{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <h2 style="text-align: center; color: #333; margin-bottom: 30px;">Register New Student</h2>
+    
+    <form method="POST" class="form-container" style="background: #f8f9fa; padding: 30px; border-radius: 10px;">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Student Name *</label>
+                <input type="text" id="name" name="name" placeholder="Enter student name" required>
+            </div>
+            <div class="form-group">
+                <label for="roll_number">Roll Number *</label>
+                <input type="text" id="roll_number" name="roll_number" placeholder="e.g., CSE001" required>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="department">Department *</label>
+                <select id="department" name="department" required>
+                    <option value="">-- Select Department --</option>
+                    <option value="Computer Science Engineering">Computer Science Engineering</option>
+                    <option value="Electronics Engineering">Electronics Engineering</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Biotechnology">Biotechnology</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="year">Year *</label>
+                <select id="year" name="year" required>
+                    <option value="">-- Select Year --</option>
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="4th Year">4th Year</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="student@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" placeholder="10 digit phone number" required>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="gender">Gender *</label>
+                <select id="gender" name="gender" required>
+                    <option value="">-- Select Gender --</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="address">Address *</label>
+                <input type="text" id="address" name="address" placeholder="Full address" required>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="margin-top: 20px; width: 100%; padding: 15px;">
+            ✓ Register Student
+        </button>
+    </form>
+    
+    <div style="background: #e7f3ff; padding: 20px; border-radius: 10px; margin-top: 30px; border-left: 4px solid #2196F3;">
+        <h4 style="color: #1976D2; margin-bottom: 10px;">ℹ️ Registration Tips</h4>
+        <ul style="color: #555; margin-left: 20px;">
+            <li>Roll Number must be unique and in format like CSE001, IT002, etc.</li>
+            <li>Email should be a valid email address</li>
+            <li>Phone number should be 10 digits</li>
+            <li>All fields are mandatory</li>
+            <li>You can register multiple students at once</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
