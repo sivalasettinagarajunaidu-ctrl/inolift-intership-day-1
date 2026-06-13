@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Diabetes Risk Predictor{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Welcome to Diabetes Risk Predictor</h1>
+        <p class="hero-subtitle">Track Your Health Indicators & Assess Diabetes Risk</p>
+        <p class="hero-description">
+            Our comprehensive diabetes risk assessment system helps you monitor health indicators
+            based on CDC's Behavioral Risk Factor Surveillance System (BRFSS) 2015 data.
+        </p>
+        
+        <div class="hero-buttons">
+            <a href="{{ url_for('register') }}" class="btn btn-primary">Start Health Assessment</a>
+            <a href="{{ url_for('records') }}" class="btn btn-secondary">View Records</a>
+        </div>
+    </div>
+</div>
+
+<section class="features">
+    <h2>Key Features</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3>Comprehensive Assessment</h3>
+            <p>Complete health questionnaire covering 21 health indicators</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💾</div>
+            <h3>Secure Data Storage</h3>
+            <p>All data stored securely in SQLite database</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Statistics & Analytics</h3>
+            <p>View aggregated statistics and health trends</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3>Detailed Records</h3>
+            <p>Access and manage your health records anytime</p>
+        </div>
+    </div>
+</section>
+
+<section class="about-section">
+    <h2>About This System</h2>
+    <div class="about-content">
+        <div class="about-text">
+            <h3>Data Source</h3>
+            <p>
+                This system utilizes data derived from the <strong>CDC's Behavioral Risk Factor Surveillance System (BRFSS) 2015</strong> survey.
+                The original dataset contains 441,455 individuals with 330 features, cleaned down to 21 essential health indicator features
+                for diabetes prediction.
+            </p>
+            <h3>Health Indicators Tracked</h3>
+            <ul class="indicators-list">
+                <li>Blood Pressure Status</li>
+                <li>Cholesterol Levels</li>
+                <li>BMI Category</li>
+                <li>Smoking Status</li>
+                <li>Physical Activity</li>
+                <li>Alcohol Consumption</li>
+                <li>General Health</li>
+                <li>Mental Health Days</li>
+                <li>Physical Health Days</li>
+                <li>And more...</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <h2>Ready to Get Started?</h2>
+    <p>Register your first health assessment today and begin tracking your diabetes risk factors.</p>
+    <a href="{{ url_for('register') }}" class="btn btn-large">Complete Health Assessment</a>
+</section>
+{% endblock %}
