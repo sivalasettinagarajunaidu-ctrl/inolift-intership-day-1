@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+
+{% block title %}Health Assessment - Diabetes Risk Predictor{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-header">
+        <h1>Health Assessment Form</h1>
+        <p>Complete this comprehensive health questionnaire</p>
+    </div>
+
+    <form method="POST" class="health-form" id="healthForm">
+        <!-- Personal Information Section -->
+        <fieldset class="form-section">
+            <legend>Personal Information</legend>
+            
+            <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" min="1" max="120" placeholder="Enter your age">
+                </div>
+
+                <div class="form-group">
+                    <label for="sex">Gender</label>
+                    <select id="sex" name="sex">
+                        <option value="0">Not Selected</option>
+                        <option value="0">Female</option>
+                        <option value="1">Male</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Health Conditions Section -->
+        <fieldset class="form-section">
+            <legend>Health Conditions</legend>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="high_bp" value="1">
+                    <span>High Blood Pressure</span>
+                </label>
+                <p class="help-text">Have you been told you have high blood pressure?</p>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="high_chol" value="1">
+                    <span>High Cholesterol</span>
+                </label>
+                <p class="help-text">Have you been told you have high cholesterol?</p>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="chol_check" value="1">
+                    <span>Cholesterol Screening</span>
+                </label>
+                <p class="help-text">Have you had your cholesterol checked in the last 5 years?</p>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="stroke" value="1">
+                    <span>History of Stroke</span>
+                </label>
+                <p class="help-text">Have you ever had a stroke?</p>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="heart_disease" value="1">
+                    <span>Heart Disease</span>
+                </label>
+                <p class="help-text">Do you have heart disease or myocardial infarction?</p>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="diff_walk" value="1">
+                    <span>Difficulty Walking</span>
+                </label>
+                <p class="help-text">Do you have difficulty walking or climbing stairs?</p>
+            </div>
+        </fieldset>
+
+        <!-- Lifestyle Factors Section -->
+        <fieldset class="form-section">
+            <legend>Lifestyle Factors</legend>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="smoker" value="1">
+                    <span>Current Smoker</span>
+                </label>
+                <p class="help-text">Do you currently smoke?</p>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="heavy_alcohol" value="1">
+                    <span>Heavy Alcohol Use</span>
+                </label>
+                <p class="help-text">Do you consume alcohol heavily?</p>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="phys_activity" value="1">
+                    <span>Physical Activity</span>
+                </label>
+                <p class="help-text">Do you engage in physical activity?</p>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="fruits" value="1">
+                    <span>Consume Fruits</span>
+                </label>
+                <p class="help-text">Do you regularly consume fruits?</p>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="veggies" value="1">
+                    <span>Consume Vegetables</span>
+                </label>
+                <p class="help-text">Do you regularly consume vegetables?</p>
+            </div>
+        </fieldset>
+
+        <!-- Health Status Section -->
+        <fieldset class="form-section">
+            <legend>Health Status</legend>
+
+            <div class="form-group">
+                <label for="bmi_category">BMI Category</label>
+                <select id="bmi_category" name="bmi_category">
+                    <option value="0">Underweight (BMI < 18.5)</option>
+                    <option value="1">Normal Weight (18.5 - 24.9)</option>
+                    <option value="2">Overweight (25 - 29.9)</option>
+                    <option value="3">Obese (BMI ≥ 30)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="general_health">General Health</label>
+                <select id="general_health" name="general_health">
+                    <option value="0">Select...</option>
+                    <option value="1">Excellent</option>
+                    <option value="2">Very Good</option>
+                    <option value="3">Good</option>
+                    <option value="4">Fair</option>
+                    <option value="5">Poor</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="mental_health">Mental Health (Days/month)</label>
+                    <input type="number" id="mental_health" name="mental_health" min="0" max="30" placeholder="0-30">
+                </div>
+
+                <div class="form-group">
+                    <label for="physical_health">Physical Health (Days/month)</label>
+                    <input type="number" id="physical_health" name="physical_health" min="0" max="30" placeholder="0-30">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="age_category">Age Category</label>
+                <select id="age_category" name="age_category">
+                    <option value="0">18-24</option>
+                    <option value="1">25-29</option>
+                    <option value="2">30-34</option>
+                    <option value="3">35-39</option>
+                    <option value="4">40-44</option>
+                    <option value="5">45-49</option>
+                    <option value="6">50-54</option>
+                    <option value="7">55-59</option>
+                    <option value="8">60-64</option>
+                    <option value="9">65+</option>
+                </select>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="health_coverage" value="1">
+                    <span>Health Insurance Coverage</span>
+                </label>
+                <p class="help-text">Do you have any health insurance coverage?</p>
+            </div>
+        </fieldset>
+
+        <!-- Education & Income Section -->
+        <fieldset class="form-section">
+            <legend>Background Information</legend>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="education_level">Education Level</label>
+                    <select id="education_level" name="education_level">
+                        <option value="0">Never attended school</option>
+                        <option value="1">Elementary school</option>
+                        <option value="2">Middle school</option>
+                        <option value="3">High school graduate</option>
+                        <option value="4">Some college</option>
+                        <option value="5">College graduate</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="income_level">Income Level</label>
+                    <select id="income_level" name="income_level">
+                        <option value="0">Less than $15,000</option>
+                        <option value="1">$15,000 - $24,999</option>
+                        <option value="2">$25,000 - $34,999</option>
+                        <option value="3">$35,000 - $49,999</option>
+                        <option value="4">$50,000+</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="diabetes_status">Diabetes Status *</label>
+                <select id="diabetes_status" name="diabetes_status" required>
+                    <option value="0">No Diabetes</option>
+                    <option value="1">Prediabetes</option>
+                    <option value="2">Diabetes</option>
+                </select>
+            </div>
+        </fieldset>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-large">Submit Assessment</button>
+            <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('healthForm').addEventListener('submit', function(e) {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        
+        if (!name || !email) {
+            e.preventDefault();
+            alert('Please fill in all required fields');
+        }
+    });
+</script>
+{% endblock %}

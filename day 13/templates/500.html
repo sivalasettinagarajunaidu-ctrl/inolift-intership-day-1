@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error - Diabetes Risk Predictor{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-code">500</div>
+        <h1>Server Error</h1>
+        <p>Oops! Something went wrong on our end. Please try again later.</p>
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Go Back Home</a>
+    </div>
+</div>
+
+<style>
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    padding: 20px;
+}
+
+.error-content {
+    text-align: center;
+}
+
+.error-code {
+    font-size: 5rem;
+    font-weight: bold;
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+.error-content h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.error-content p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+</style>
+{% endblock %}
