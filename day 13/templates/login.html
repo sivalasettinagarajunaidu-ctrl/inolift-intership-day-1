@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Diabetes Risk Predictor{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <div class="form-header">
+    <h1>Admin Login</h1>
+    <p>Sign in to access Records and Statistics.</p>
+  </div>
+
+  <form method="POST" class="health-form" id="loginForm">
+    <fieldset class="form-section" style="border-bottom: none;">
+      <legend>Sign In</legend>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="username">Username *</label>
+          <input type="text" id="username" name="username" required placeholder="Enter username">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password *</label>
+          <input type="password" id="password" name="password" required placeholder="Enter password">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary btn-large">Sign In</button>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary">Cancel</a>
+      </div>
+
+      {% if google_login_enabled %}
+      <div class="auth-divider"><span>or</span></div>
+      <a
+        href="{{ url_for('google_login', next=request.args.get('next', '')) }}"
+        class="btn btn-google btn-large"
+      >
+        <span class="google-mark">G</span>
+        Sign in with Google
+      </a>
+      {% endif %}
+
+      <p class="help-text" style="margin-left: 0; margin-top: 15px;">
+        Default credentials: admin / admin123 (can be changed via APP_ADMIN_USERNAME and APP_ADMIN_PASSWORD).
+      </p>
+    </fieldset>
+  </form>
+</div>
+{% endblock %}
+
